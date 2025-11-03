@@ -3,9 +3,9 @@ let posenet;
 let noseX,noseY;
 let people=[];
 function setup() {
-    createCanvas(1000, 600);
+    createCanvas(windowWidth, windowHeight);
     capture=createCapture(VIDEO);
-    capture.size(1000,600);
+    capture.size(windowWidth, windowHeight);
     capture.hide();
     posenet=ml5.poseNet(capture,modelLoaded);
     posenet.on('pose',receivePoses);
@@ -24,7 +24,7 @@ function modelLoaded(){
 }
 function draw() {
     //background(220);
-    image(capture,0,0,1000,600);
+    image(capture,0,0,width,height);
     
     fill(255, 0, 0);
     for(let j=0;j<people.length;j++){
@@ -48,3 +48,4 @@ function draw() {
     }
     
 }
+
