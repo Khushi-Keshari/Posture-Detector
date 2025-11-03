@@ -25,11 +25,7 @@ function receivePoses(poses) {
 }
 
 function draw() {
-  // Mirror the video for a selfie view
-  translate(width, 0);
-  scale(-1, 1);
-
-  // Draw video
+  // Draw video (full screen)
   image(capture, 0, 0, width, height);
 
   fill(255, 0, 0);
@@ -41,25 +37,25 @@ function draw() {
     let skeleton = people[j].skeleton;
 
     if (singlepose) {
-      // Scale keypoints according to current canvas size
+      // Scale keypoints to fit current canvas
       let scaleX = width / capture.width;
       let scaleY = height / capture.height;
 
-      // Draw keypoints
+      // Draw mirrored keypoints
       for (let i = 0; i < singlepose.keypoints.length; i++) {
-        let x = singlepose.keypoints[i].position.x * scaleX;
+        let x = width - (singlepose.keypoints[i].position.x * scaleX); // mirror X
         let y = singlepose.keypoints[i].position.y * scaleY;
         ellipse(x, y, 10, 10);
       }
 
-      // Draw skeleton lines
+      // Draw mirrored skeleton lines
       for (let i = 0; i < skeleton.length; i++) {
         let partA = skeleton[i][0];
         let partB = skeleton[i][1];
         line(
-          partA.position.x * scaleX,
+          width - (partA.position.x * scaleX),
           partA.position.y * scaleY,
-          partB.position.x * scaleX,
+          width - (partB.position.x * scaleX),
           partB.position.y * scaleY
         );
       }
